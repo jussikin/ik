@@ -1,0 +1,19 @@
+html
+  head
+  body 
+    h1 Add Link
+    form(method='POST')
+      p
+      | link: 
+      input(type='text', name='link', value='')
+      input(type='submit', value='Submit')
+    
+    h1 Link List
+        table(style='width:100%', border='1')
+          each link in links
+            tr
+              td= link.id 
+              td= link.link 
+              td= link.clicks
+              td
+                a(href='d/' + link.id) delete 
