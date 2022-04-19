@@ -1,43 +1,40 @@
-// Import all functions from put-item.js 
 const lambda = require('../../../src/handlers/put-item.js'); 
-// Import dynamodb from aws-sdk 
 const dynamodb = require('aws-sdk/clients/dynamodb'); 
- 
-// This includes all tests for putItemHandler() 
+const shortid = require('shortid');
+
 describe('Test putItemHandler', function () { 
     let putSpy; 
- 
-    // Test one-time setup and teardown, see more in https://jestjs.io/docs/en/setup-teardown 
+    shortid.generate = jest.fn().mockReturnValue('blaas');
+
     beforeAll(() => { 
-        // Mock dynamodb get and put methods 
-        // https://jestjs.io/docs/en/jest-object.html#jestspyonobject-methodname 
-        putSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'put'); 
+        putSpy = jest.spyOn(dynamodb.DocumentClient.prototype, 'put');
     }); 
  
-    // Clean up mocks 
     afterAll(() => { 
         putSpy.mockRestore(); 
     }); 
- 
-    // This test invokes putItemHandler() and compare the result  
+
     it('should add id to the table', async () => { 
-        const returnedItem = { id: 'id1', name: 'name1' }; 
- 
-        // Return the specified value whenever the spied put function is called 
+        const returnedItem = {"id": "id1","link": "name1"};
         putSpy.mockReturnValue({ 
             promise: () => Promise.resolve(returnedItem) 
         }); 
+
+
  
         const event = { 
             httpMethod: 'POST', 
-            body: '{"id": "id1","name": "name1"}' 
+            body: 'aWQ9aWQxJmxpbms9bmFtZTE=',
+            requestContext: {domainName: 'test'},
+            rawPath:'/plop/'
         }; 
      
         // Invoke putItemHandler() 
         const result = await lambda.putItemHandler(event); 
         const expectedResult = { 
             statusCode: 200, 
-            body: JSON.stringify(returnedItem) 
+            body: "<html><head></head><body> <h1>Shortened link</h1><p>https://test/plop/blaas</p></body></html>",
+            headers: {"Content-Type": "text/html"}
         }; 
  
         // Compare the result with the expected result 
