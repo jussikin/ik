@@ -23,13 +23,10 @@ Resources:
      CorsConfiguration: True
      Domain:
         CertificateArn: !Ref CertificateArn
-        #CertificateArn: arn:aws:acm:eu-north-1:237722518249:certificate/394bb7f9-05f7-4a91-8f42-98d1882e9d83
         DomainName: !Ref Domain
-        #DomainName: jussin.de
         Route53:
           HostedZoneId: !Ref Route53ZoneId
-        #  HostedZoneId: Z069327916Y6DP863MU1D
-
+        
   getAllItemsFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -41,12 +38,10 @@ Resources:
       Timeout: 100
       Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
         - DynamoDBCrudPolicy:
             TableName: !Ref SampleTable
       Environment:
         Variables:
-          # Make table name accessible as environment variable from function code during execution
           SAMPLE_TABLE: !Ref SampleTable
       Events:
         Api:
@@ -55,10 +50,7 @@ Resources:
             Path: /
             ApiId: !Ref LinksHttpApi
             Method: GET
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  # This is a Lambda function config associated with the source code: get-by-id.js
   getByIdFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -70,12 +62,10 @@ Resources:
       Timeout: 100
       Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
         - DynamoDBCrudPolicy:
             TableName: !Ref SampleTable
       Environment:
-        Variables:
-          # Make table name accessible as environment variable from function code during execution
+        Variables:          
           SAMPLE_TABLE: !Ref SampleTable
       Events:
         Api:
@@ -109,10 +99,6 @@ Resources:
             Path: /d/{id}
             Method: GET
   
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-
-  # This is a Lambda function config associated with the source code: put-item.js
   putItemFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -124,12 +110,10 @@ Resources:
       Timeout: 100
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
       Policies:
-        # Give Create/Read/Update/Delete Permissions to the SampleTable
         - DynamoDBCrudPolicy:
             TableName: !Ref SampleTable
       Environment:
         Variables:
-          # Make table name accessible as environment variable from function code during execution
           SAMPLE_TABLE: !Ref SampleTable
       Events:
         Api:
@@ -138,10 +122,7 @@ Resources:
             ApiId: !Ref LinksHttpApi
             Path: /
             Method: POST
-  # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
 
-  # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
   SampleTable:
     Type: AWS::Serverless::SimpleTable
     Properties:
@@ -152,7 +133,4 @@ Resources:
         ReadCapacityUnits: 2
         WriteCapacityUnits: 2
 
-#Outputs:
- # WebEndpoint:
-  #  Description: "API Gateway endpoint URL for Prod stage"
-   # Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+

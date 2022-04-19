@@ -1,7 +1,7 @@
 const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
 const tableName = process.env.SAMPLE_TABLE;
-const crypto = require("crypto");
+const shortid = require('shortid');
 const pug = require('pug');
 
 
@@ -9,7 +9,7 @@ const pug = require('pug');
  * generate random id for the link
  */
 function generateRandomId() {
-    return crypto.randomBytes(4).toString("hex");
+    return shortid.generate();
 }
 
 
