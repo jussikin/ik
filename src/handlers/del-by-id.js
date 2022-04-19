@@ -1,4 +1,4 @@
-const tableName = process.env.SAMPLE_TABLE;
+const tableName = process.env.LINKS_TABLE;
 const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
 const pug = require('pug');
@@ -31,7 +31,7 @@ exports.deleteByIdHandler = async (event) => {
         'Content-Type': 'text/html',
       }
     };
-  }catch(error){
+  } catch (error) {
     const toRet = pug.renderFile('src/templates/error.pug', ({ error }));
     return {
       statusCode: 200,

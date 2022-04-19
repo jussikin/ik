@@ -17,6 +17,17 @@ Parameters:
     Description: zoneid in route 53
 
 Resources:
+  LinksTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+
   LinksHttpApi:
    Type: AWS::Serverless::HttpApi
    Properties:
@@ -39,10 +50,10 @@ Resources:
       Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref LinksTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref SampleTable
+          LINKS_TABLE: !Ref LinksTable
       Events:
         Api:
           Type: HttpApi
@@ -63,10 +74,10 @@ Resources:
       Description: A simple example includes a HTTP get method to get one item by id from a DynamoDB table.
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref LinksTable
       Environment:
         Variables:          
-          SAMPLE_TABLE: !Ref SampleTable
+          LINKS_TABLE: !Ref LinksTable
       Events:
         Api:
           Type: HttpApi
@@ -87,10 +98,10 @@ Resources:
       Description: deletes links from link table
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref LinksTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref SampleTable
+          LINKS_TABLE: !Ref LinksTable
       Events:
         Api:
           Type: HttpApi
@@ -111,10 +122,10 @@ Resources:
       Description: A simple example includes a HTTP post method to add one item to a DynamoDB table.
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref SampleTable
+            TableName: !Ref LinksTable
       Environment:
         Variables:
-          SAMPLE_TABLE: !Ref SampleTable
+          LINKS_TABLE: !Ref LinksTable
       Events:
         Api:
           Type: HttpApi
@@ -123,14 +134,6 @@ Resources:
             Path: /
             Method: POST
 
-  SampleTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: id
-        Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 2
-        WriteCapacityUnits: 2
+
 
 

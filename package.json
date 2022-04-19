@@ -1,6 +1,6 @@
 {
-    "name": "delete-test-01",
-    "description": "delete-test-01-description",
+    "name": "wl",
+    "description": "just a demo app",
     "version": "0.0.1",
     "private": true,
     "dependencies": {
@@ -13,9 +13,13 @@
         "uri-js": "^4.4.1"
     },
     "devDependencies": {
+        "eslint": "^8.13.0",
+        "eslint-plugin-jest": "^26.1.4",
         "jest": "^26.6.3"
     },
     "scripts": {
-        "test": "jest"
+        "test": "jest",
+        "lint": "eslint .  --ext .js",
+        "lint-fix": "eslint --fix .  --ext .js"
     }
 }

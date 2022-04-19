@@ -1,4 +1,4 @@
-const tableName = process.env.SAMPLE_TABLE;
+const tableName = process.env.LINKS_TABLE;
 const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
 const redirect = require('html-redirect');
@@ -28,7 +28,7 @@ async function incrementClickCounter(id) {
   await docClient.update(params).promise();
 }
 
-async function getLinkItemFromDatabase(id){
+async function getLinkItemFromDatabase(id) {
   var params = {
     TableName: tableName,
     Key: { id: id },
@@ -41,8 +41,8 @@ exports.getByIdHandler = async (event) => {
     console.info('received:', event);
     const id = event.pathParameters.id;
     const data = await getLinkItemFromDatabase(id);
-    if(!data.Item)
-      throw(new Error('no such link exists'));
+    if (!data.Item)
+      throw (new Error('no such link exists'));
     const redirectStream = redirect(data.Item.link, { timeout: 0, title: 'odota siirtoa', placeholder: 'jos siirto ei toimi kayta linkkia' });
     const result = await streamToString(redirectStream);
     await incrementClickCounter(id);

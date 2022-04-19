@@ -28,7 +28,7 @@ async function reserveLinkInDatabase(link) {
                 Item: { id: id, clicks, link },
                 ConditionExpression: 'attribute_not_exists(id)'
             };
-            const result = await docClient.put(params).promise();
+            await docClient.put(params).promise();
             return id;
         } catch (exeption) {
             console.log('id in use, find another one');
