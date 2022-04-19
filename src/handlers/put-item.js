@@ -1,6 +1,6 @@
 const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
-const tableName = process.env.SAMPLE_TABLE;
+const tableName = process.env.LINKS_TABLE;
 const shortid = require('shortid');
 const pug = require('pug');
 
