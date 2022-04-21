@@ -1,16 +1,13 @@
 {
     "name": "wl",
-    "description": "just a demo app",
-    "version": "0.0.1",
+    "description": "just a demo app, something to talks about",
+    "version": "1.0.1",
     "private": true,
     "dependencies": {
         "aws-sdk": "^2.799.0",
         "html-redirect": "^0.3.0",
-        "memory-streams": "^0.1.3",
         "pug": "^3.0.2",
-        "pug3-loader": "^2.4.3",
-        "shortid": "^2.2.16",
-        "uri-js": "^4.4.1"
+        "shortid": "^2.2.16"
     },
     "devDependencies": {
         "eslint": "^8.13.0",
