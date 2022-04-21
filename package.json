@@ -17,6 +17,8 @@
     "scripts": {
         "test": "jest",
         "lint": "eslint .  --ext .js",
-        "lint-fix": "eslint --fix .  --ext .js"
+        "lint-fix": "eslint --fix .  --ext .js",
+        "build": "sam build",
+        "deploy": "sam deploy"
     }
 }
